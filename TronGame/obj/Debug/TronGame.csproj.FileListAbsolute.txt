@@ -1,0 +1,10 @@
+\\nsccdtfs4\students\W0247724\repos\TronGame\TronGame\bin\Debug\TronGame.exe.config
+H:\repos\TronGame\TronGame\bin\Debug\TronGame.exe.config
+H:\repos\TronGame\TronGame\bin\Debug\TronGame.exe
+H:\repos\TronGame\TronGame\bin\Debug\TronGame.pdb
+H:\repos\TronGame\TronGame\obj\Debug\TronGame.csprojResolveAssemblyReference.cache
+H:\repos\TronGame\TronGame\obj\Debug\TronGame.Form1.resources
+H:\repos\TronGame\TronGame\obj\Debug\TronGame.Properties.Resources.resources
+H:\repos\TronGame\TronGame\obj\Debug\TronGame.csproj.GenerateResource.Cache
+H:\repos\TronGame\TronGame\obj\Debug\TronGame.exe
+H:\repos\TronGame\TronGame\obj\Debug\TronGame.pdb

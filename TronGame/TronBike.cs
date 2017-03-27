@@ -9,6 +9,9 @@ namespace TronGame
 {
     public class TronBike
     {
+        public List<Color> colors = new List<Color> { Color.Red, Color.Orange, Color.Yellow, Color.Green, Color.Blue, Color.Violet };
+        public List<Color> darkColors = new List<Color> { Color.DarkRed, Color.DarkOrange, Color.DarkGoldenrod, Color.DarkGreen, Color.DarkBlue, Color.DarkViolet };
+        public bool seizureMode { get; set; }
         public List<Position> path { get; }
         public Position position { get; }
         private DIRECTION _direction;
@@ -59,32 +62,73 @@ namespace TronGame
             this.color = color;
             this.trailColor = trailColor;
             path = new List<Position>();
+            seizureMode = false;
+        }
+
+        public TronBike(int x, int y, DIRECTION direction, Color color, Color trailColor, bool seizureMode)
+        {
+            position = new Position(x, y);
+            this.direction = direction;
+            this.color = color;
+            this.trailColor = trailColor;
+            path = new List<Position>();
+            this.seizureMode = seizureMode;
         }
 
         public void Paint(Graphics graphics)
         {
-            path.Add(new Position(position));
-            SolidBrush brush = new SolidBrush(color);
-            switch (direction)
+            if (seizureMode)
             {
-                case DIRECTION.UP:
-                    position.Y--;
-                    break;
-                case DIRECTION.DOWN:
-                    position.Y++;
-                    break;
-                case DIRECTION.LEFT:
-                    position.X--;
-                    break;
-                case DIRECTION.RIGHT:
-                    position.X++;
-                    break;
+                int c = new Random().Next(colors.Count);
+                path.Add(new Position(position));
+                SolidBrush brush = new SolidBrush(colors[c]);
+                switch (direction)
+                {
+                    case DIRECTION.UP:
+                        position.Y--;
+                        break;
+                    case DIRECTION.DOWN:
+                        position.Y++;
+                        break;
+                    case DIRECTION.LEFT:
+                        position.X--;
+                        break;
+                    case DIRECTION.RIGHT:
+                        position.X++;
+                        break;
+                }
+                graphics.FillRectangle(brush, position.X, position.Y, 1, 1);
+                brush.Color = darkColors[c];
+                foreach (Position pos in path)
+                {
+                    graphics.FillRectangle(brush, pos.X, pos.Y, 1, 1);
+                }
             }
-            graphics.FillRectangle(brush, position.X, position.Y, 1, 1);
-            brush.Color = trailColor;
-            foreach (Position pos in path)
+            else
             {
-                graphics.FillRectangle(brush, pos.X, pos.Y, 1, 1);
+                path.Add(new Position(position));
+                SolidBrush brush = new SolidBrush(color);
+                switch (direction)
+                {
+                    case DIRECTION.UP:
+                        position.Y--;
+                        break;
+                    case DIRECTION.DOWN:
+                        position.Y++;
+                        break;
+                    case DIRECTION.LEFT:
+                        position.X--;
+                        break;
+                    case DIRECTION.RIGHT:
+                        position.X++;
+                        break;
+                }
+                graphics.FillRectangle(brush, position.X, position.Y, 1, 1);
+                brush.Color = trailColor;
+                foreach (Position pos in path)
+                {
+                    graphics.FillRectangle(brush, pos.X, pos.Y, 1, 1);
+                }
             }
         }
     }

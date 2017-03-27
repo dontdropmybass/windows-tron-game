@@ -17,3 +17,13 @@ C:\Users\User\repos\windows-tron-game\TronGame\obj\Debug\TronGame.csprojResolveA
 C:\Users\User\repos\windows-tron-game\TronGame\obj\Debug\TronGame.Form1.resources
 C:\Users\User\repos\windows-tron-game\TronGame\obj\Debug\TronGame.Properties.Resources.resources
 C:\Users\User\repos\windows-tron-game\TronGame\obj\Debug\TronGame.csproj.GenerateResource.Cache
+D:\repos\windows-tron-game\TronGame\bin\Debug\TronGame.exe.config
+D:\repos\windows-tron-game\TronGame\obj\Debug\TronGame.exe
+D:\repos\windows-tron-game\TronGame\obj\Debug\TronGame.pdb
+D:\repos\windows-tron-game\TronGame\bin\Debug\all-star.wav
+D:\repos\windows-tron-game\TronGame\bin\Debug\TronGame.exe
+D:\repos\windows-tron-game\TronGame\bin\Debug\TronGame.pdb
+D:\repos\windows-tron-game\TronGame\obj\Debug\TronGame.csprojResolveAssemblyReference.cache
+D:\repos\windows-tron-game\TronGame\obj\Debug\TronGame.Form1.resources
+D:\repos\windows-tron-game\TronGame\obj\Debug\TronGame.Properties.Resources.resources
+D:\repos\windows-tron-game\TronGame\obj\Debug\TronGame.csproj.GenerateResource.Cache

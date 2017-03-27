@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,15 +14,31 @@ namespace TronGame
     public partial class Form1 : Form
     {
         bool playing = false;
+
+        bool dank = false;
         
         TronBike redBike;
         TronBike blueBike;
 
         string winner = "";
 
+        //border stuff
+        List<Pen> pens = new List<Pen>
+        {
+            new Pen(Color.Cyan, 10),
+            new Pen(Color.Magenta, 10),
+            new Pen(Color.Yellow, 10)
+        };
+        Pen borderPen = new Pen(Color.Green, 10);
+        int penIndex = 0;
+        Rectangle r;
+
         //text font
         Font font;
         SolidBrush textBrush;
+
+        //music player
+        private SoundPlayer Player = new SoundPlayer();
 
         public Form1()
         {
@@ -71,8 +88,20 @@ namespace TronGame
                     redBike = new TronBike(Width / 10, Height / 2, DIRECTION.RIGHT, Color.Red, Color.DarkRed);
                     blueBike = new TronBike((Width / 10) * 9, Height / 2, DIRECTION.LEFT, Color.Blue, Color.DarkBlue);
                     playing = true;
+                    dank = false;
                     timer1.Start();
-                    timer1.Interval = 1;
+                    timer1.Interval = 1; // as fast as it can possibly go
+                }
+                else if (e.KeyCode == Keys.Space)
+                {
+                    redBike = new TronBike(Width / 10, Height / 2, DIRECTION.RIGHT, Color.Red, Color.DarkRed, true);
+                    blueBike = new TronBike((Width / 10) * 9, Height / 2, DIRECTION.LEFT, Color.Blue, Color.DarkBlue, true);
+                    dank = true;
+                    playing = true;
+                    Player.SoundLocation = @"all-star.wav";
+                    Player.PlayLooping();
+                    timer1.Start();
+                    timer1.Interval = 1; // as fast as it can possibly go
                 }
             }
         }
@@ -80,9 +109,9 @@ namespace TronGame
         private void Form1_Load(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Maximized;
-
+            r = new Rectangle(0, 0, ActiveForm.Width-20, ActiveForm.Height-80);
             font = new Font("Comic Sans MS", 18);
-            textBrush = new SolidBrush(Color.White);
+            textBrush = new SolidBrush(Color.Magenta);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -92,11 +121,11 @@ namespace TronGame
 
         private Collision CheckCollision()
         {
-            if (blueBike.position.X < 0 || blueBike.position.X >= Width || blueBike.position.Y < 0 || blueBike.position.Y >= Height)
+            if (blueBike.position.X < 10 || blueBike.position.X >= Width-30 || blueBike.position.Y < 10 || blueBike.position.Y >= Height-90)
             {
                 return Collision.Blue;
             }
-            if (redBike.position.X < 0 || redBike.position.X >= Width || redBike.position.Y < 0 || redBike.position.Y >= Height)
+            if (redBike.position.X < 10 || redBike.position.X >= Width-30 || redBike.position.Y < 10 || redBike.position.Y >= Height-90)
             {
                 return Collision.Red;
             }
@@ -129,6 +158,18 @@ namespace TronGame
         {
             if (playing)
             {
+                if (dank)
+                {
+                    // draw the border then change the colour
+                    e.Graphics.DrawRectangle(pens[penIndex], r);
+                    penIndex++;
+                    if (penIndex >= pens.Count) penIndex = 0;
+                }
+                else
+                {
+                    e.Graphics.DrawRectangle(borderPen, r);
+                }
+
                 redBike.Paint(e.Graphics);
                 blueBike.Paint(e.Graphics);
                 Collision collision = CheckCollision();
@@ -148,6 +189,7 @@ namespace TronGame
             }
             else
             {
+                Player.Stop();
                 if (winner=="")
                 {
                     e.Graphics.DrawString

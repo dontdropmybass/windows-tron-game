@@ -8,3 +8,12 @@ H:\repos\TronGame\TronGame\obj\Debug\TronGame.Properties.Resources.resources
 H:\repos\TronGame\TronGame\obj\Debug\TronGame.csproj.GenerateResource.Cache
 H:\repos\TronGame\TronGame\obj\Debug\TronGame.exe
 H:\repos\TronGame\TronGame\obj\Debug\TronGame.pdb
+C:\Users\User\repos\windows-tron-game\TronGame\bin\Debug\TronGame.exe.config
+C:\Users\User\repos\windows-tron-game\TronGame\obj\Debug\TronGame.exe
+C:\Users\User\repos\windows-tron-game\TronGame\obj\Debug\TronGame.pdb
+C:\Users\User\repos\windows-tron-game\TronGame\bin\Debug\TronGame.exe
+C:\Users\User\repos\windows-tron-game\TronGame\bin\Debug\TronGame.pdb
+C:\Users\User\repos\windows-tron-game\TronGame\obj\Debug\TronGame.csprojResolveAssemblyReference.cache
+C:\Users\User\repos\windows-tron-game\TronGame\obj\Debug\TronGame.Form1.resources
+C:\Users\User\repos\windows-tron-game\TronGame\obj\Debug\TronGame.Properties.Resources.resources
+C:\Users\User\repos\windows-tron-game\TronGame\obj\Debug\TronGame.csproj.GenerateResource.Cache

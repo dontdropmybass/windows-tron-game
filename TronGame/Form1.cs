@@ -26,6 +26,7 @@ namespace TronGame
         public Form1()
         {
             InitializeComponent();
+            DoubleBuffered = true;
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -67,10 +68,11 @@ namespace TronGame
             {
                 if (e.KeyCode == Keys.Return)
                 {
-                    redBike = new TronBike(Width / 10, Height / 2, DIRECTION.RIGHT, Color.Red, Color.OrangeRed);
-                    blueBike = new TronBike((Width / 10) * 9, Height / 2, DIRECTION.LEFT, Color.Blue, Color.LightBlue);
+                    redBike = new TronBike(Width / 10, Height / 2, DIRECTION.RIGHT, Color.Red, Color.DarkRed);
+                    blueBike = new TronBike((Width / 10) * 9, Height / 2, DIRECTION.LEFT, Color.Blue, Color.DarkBlue);
                     playing = true;
                     timer1.Start();
+                    timer1.Interval = 1;
                 }
             }
         }
@@ -90,6 +92,14 @@ namespace TronGame
 
         private Collision CheckCollision()
         {
+            if (blueBike.position.X < 0 || blueBike.position.X >= Width || blueBike.position.Y < 0 || blueBike.position.Y >= Height)
+            {
+                return Collision.Blue;
+            }
+            if (redBike.position.X < 0 || redBike.position.X >= Width || redBike.position.Y < 0 || redBike.position.Y >= Height)
+            {
+                return Collision.Red;
+            }
             foreach (Position position in redBike.path)
             {
                 if (position.X == blueBike.position.X && position.Y == blueBike.position.Y)
@@ -125,11 +135,11 @@ namespace TronGame
                 switch (collision)
                 {
                     case Collision.Red:
-                        winner = "Red Bike";
+                        winner = "Blue Bike";
                         playing = false;
                         break;
                     case Collision.Blue:
-                        winner = "Blue Bike";
+                        winner = "Red Bike";
                         playing = false;
                         break;
                     default:
@@ -138,13 +148,26 @@ namespace TronGame
             }
             else
             {
-                e.Graphics.DrawString
-                (
-                    "Red bike uses WASD, blue bike uses arrow keys. Press enter to start.",
-                    font,
-                    textBrush,
-                    new Point(0, 0)
-                );
+                if (winner=="")
+                {
+                    e.Graphics.DrawString
+                    (
+                        "Red bike uses WASD, blue bike uses arrow keys. Press enter to start.",
+                        font,
+                        textBrush,
+                        new Point(0, 0)
+                    );
+                }
+                else
+                {
+                    e.Graphics.DrawString
+                    (
+                        winner + " wins! Press enter to play again...",
+                        font,
+                        textBrush,
+                        new Point(0, 0)
+                    );
+                }
                 timer1.Stop();
             }
         }

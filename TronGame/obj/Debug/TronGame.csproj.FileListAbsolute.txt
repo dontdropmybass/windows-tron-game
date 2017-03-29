@@ -27,3 +27,5 @@ D:\repos\windows-tron-game\TronGame\obj\Debug\TronGame.csprojResolveAssemblyRefe
 D:\repos\windows-tron-game\TronGame\obj\Debug\TronGame.Form1.resources
 D:\repos\windows-tron-game\TronGame\obj\Debug\TronGame.Properties.Resources.resources
 D:\repos\windows-tron-game\TronGame\obj\Debug\TronGame.csproj.GenerateResource.Cache
+D:\repos\windows-tron-game\TronGame\bin\Debug\tronbike.png
+D:\repos\windows-tron-game\TronGame\bin\Debug\trongridbg.jpg

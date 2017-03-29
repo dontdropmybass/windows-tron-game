@@ -20,6 +20,12 @@ namespace TronGame
         TronBike redBike;
         TronBike blueBike;
 
+        int redBikeScore = 0;
+        int blueBikeScore = 0;
+
+        Image bg = Image.FromFile("trongridbg.jpg");
+        Image logo = Image.FromFile("tronbike.png");
+
         string winner = "";
 
         //border stuff
@@ -109,7 +115,7 @@ namespace TronGame
         private void Form1_Load(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Maximized;
-            r = new Rectangle(0, 0, ActiveForm.Width-20, ActiveForm.Height-80);
+            r = new Rectangle(0, 0, ActiveForm.Width-20, ActiveForm.Height-180);
             font = new Font("Comic Sans MS", 18);
             textBrush = new SolidBrush(Color.Magenta);
         }
@@ -121,41 +127,49 @@ namespace TronGame
 
         private Collision CheckCollision()
         {
-            if (blueBike.position.X < 10 || blueBike.position.X >= Width-30 || blueBike.position.Y < 10 || blueBike.position.Y >= Height-90)
+            bool red = false;
+            bool blue = false;
+            if (blueBike.position.X < 10 || blueBike.position.X >= Width-30 || blueBike.position.Y < 10 || blueBike.position.Y >= Height-190)
             {
-                return Collision.Blue;
+                blue = true;
             }
-            if (redBike.position.X < 10 || redBike.position.X >= Width-30 || redBike.position.Y < 10 || redBike.position.Y >= Height-90)
+            if (redBike.position.X < 10 || redBike.position.X >= Width-30 || redBike.position.Y < 10 || redBike.position.Y >= Height-190)
             {
-                return Collision.Red;
+                red = true;
             }
             foreach (Position position in redBike.path)
             {
                 if (position.X == blueBike.position.X && position.Y == blueBike.position.Y)
                 {
-                    return Collision.Blue;
+                    blue = true;
                 }
                 else if (position.X == redBike.position.X && position.Y == redBike.position.Y)
                 {
-                    return Collision.Red;
+                    red = true;
                 }
             }
             foreach (Position position in blueBike.path)
             {
                 if (position.X == blueBike.position.X && position.Y == blueBike.position.Y)
                 {
-                    return Collision.Blue;
+                    blue = true;
                 }
                 else if (position.X == redBike.position.X && position.Y == redBike.position.Y)
                 {
-                    return Collision.Red;
+                    red = true;
                 }
             }
-            return Collision.None;
+            if (blue && red) return Collision.Both;
+            else if (blue) return Collision.Blue;
+            else if (red) return Collision.Red;
+            else return Collision.None;
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
+            e.Graphics.DrawString(Convert.ToString(redBikeScore), font, textBrush, 50, ActiveForm.Height - 150);
+            e.Graphics.DrawString(Convert.ToString(blueBikeScore), font, textBrush, ActiveForm.Width - 50, ActiveForm.Height - 150);
+            e.Graphics.DrawImage(logo, ActiveForm.Width / 2 - logo.Width / 2, ActiveForm.Height - 150 - logo.Height / 2);
             if (playing)
             {
                 if (dank)
@@ -169,6 +183,7 @@ namespace TronGame
                 {
                     e.Graphics.DrawRectangle(borderPen, r);
                 }
+                e.Graphics.DrawImage(bg, r);
 
                 redBike.Paint(e.Graphics);
                 blueBike.Paint(e.Graphics);
@@ -177,10 +192,16 @@ namespace TronGame
                 {
                     case Collision.Red:
                         winner = "Blue Bike";
+                        blueBikeScore++;
                         playing = false;
                         break;
                     case Collision.Blue:
                         winner = "Red Bike";
+                        redBikeScore++;
+                        playing = false;
+                        break;
+                    case Collision.Both:
+                        winner = "Nobody";
                         playing = false;
                         break;
                     default:
@@ -215,5 +236,5 @@ namespace TronGame
         }
     }
 
-    enum Collision { None, Red, Blue }
+    enum Collision { None, Red, Blue, Both }
 }
